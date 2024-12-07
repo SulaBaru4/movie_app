@@ -1,6 +1,6 @@
 class Movie {
   final String title;
-  final String imageUrl;
+  final String imageAsset;
 
-  Movie({required this.title, required this.imageUrl});
+  Movie({required this.title, required this.imageAsset});
 }

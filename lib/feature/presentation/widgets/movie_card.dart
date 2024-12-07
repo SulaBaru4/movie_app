@@ -1,51 +1,46 @@
 import 'package:flutter/material.dart';
 
-class MovieCard extends StatelessWidget {
-  final String title;
-  final String imageUrl;
+import '../../../common/colors.dart';
+import '../../../common/custom_text.dart';
+import '../../domain/entities/movie.dart';
 
-  const MovieCard({
-    super.key,
-    required this.title,
-    required this.imageUrl,
-  });
+class MovieCard extends StatelessWidget {
+  final Movie movie;
+
+  const MovieCard({required this.movie, super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 150,
-      height: 250,
-      child: Column(
-        children: [
-          Card(
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 32),
+          child: Card(
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
-              child: Image.network(
-                imageUrl,
-                width: 150,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                  child: Image.asset(
+                    movie.imageAsset,
+                    height: 400,
+                    width:  200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
-          ),
-        ],
-      ),
+        ),
+         CustomText(
+          text: movie.title,
+          firstLetterColor: AppColors.pink,
+          remainingTextColor: Colors.black,
+        ),
+      ],
     );
   }
 }
