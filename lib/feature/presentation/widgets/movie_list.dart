@@ -15,15 +15,14 @@ class MovieList extends StatelessWidget {
     return Expanded(
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           childAspectRatio: 2 / 3,
         ),
         itemCount: movies.length,
         itemBuilder: (context, index) {
           final movie = movies[index];
           return MovieCard(
-            title: movie.title,
-            imageUrl: movie.imageUrl,
+            movie: movie,
           );
         },
       ),
