@@ -1,6 +1,7 @@
 import 'package:application_pet/feature/domain/entities/user.dart';
 import 'package:application_pet/feature/domain/usecases/use_case.dart';
 import 'package:dartz/dartz.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/error/failure.dart';
 import '../repositories/auth_repository.dart';
@@ -23,8 +24,10 @@ class SignUpUseCase implements UseCase<UserEntity, SignUpParams> {
     try{
       final user = await repository.signUp(params.email, params.password);
       return Right(user);
+    } on AuthException catch (_) {
+      return Left(ServerFailure(message: 'Wrong Email'));
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: "Error has occurred"));
     }
     }
   }

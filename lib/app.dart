@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Setup dependencies
+    /// Setup dependencies
     final dataSource = SupabaseAuthDataSource(Supabase.instance.client);
     final AuthRepository authRepository = AuthRepositoryImpl(dataSource);
 
@@ -48,3 +49,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+*/

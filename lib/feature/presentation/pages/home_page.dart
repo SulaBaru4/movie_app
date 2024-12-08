@@ -3,7 +3,7 @@ import 'package:application_pet/common/custom_text.dart';
 import 'package:application_pet/common/widget_size.dart';
 import 'package:application_pet/feature/presentation/bloc/auth_cubit.dart';
 import 'package:application_pet/feature/presentation/pages/auth_page.dart';
-import 'package:application_pet/feature/presentation/viewmodels/images_view_model.dart';
+import 'package:application_pet/feature/presentation/widgets/logged_dialog.dart';
 import 'package:application_pet/feature/presentation/widgets/movie_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,10 +33,10 @@ class _MainPageState extends State<MainPage> {
       Movie(title: 'Blade Runner 2049', imageAsset: 'assets/images/bladerunner.jpg'),
     ];
     var widgetSize = WidgetSize(context);
-    final viewModel = Provider.of<ImagesViewModel>(context);
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.pink,
         title: Padding(
           padding: const EdgeInsets.only(left: 10),
@@ -48,7 +48,13 @@ class _MainPageState extends State<MainPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AuthPage()));
+              final authCubit = context.read<AuthCubit>();
+              final user = authCubit.state.user;
+              if (user != null) {
+                showLoggedDialog (context, user.email);
+              } else {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AuthPage()));
+              }
             },
             icon: Icon(
               Icons.account_circle_rounded,
@@ -59,14 +65,14 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            /*Container(
               padding: const EdgeInsets.only(left: 10),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.center,
                 child: CustomText(
                   text: "Movies",
                   firstLetterColor: AppColors.pink,
@@ -74,7 +80,7 @@ class _MainPageState extends State<MainPage> {
                 ),
               ),
             ),
-            widgetSpace(20),
+            widgetSpace(20),*/
             MovieList(movies: movies)
           ],
         ),

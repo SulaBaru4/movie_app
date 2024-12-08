@@ -2,6 +2,7 @@ import 'package:application_pet/feature/domain/entities/user.dart';
 import 'package:application_pet/feature/domain/repositories/auth_repository.dart';
 import 'package:application_pet/feature/domain/usecases/use_case.dart';
 import 'package:dartz/dartz.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/error/failure.dart';
 
@@ -22,8 +23,10 @@ class SignInUseCase implements UseCase<UserEntity, SignInParams> {
     try {
       final user = await repository.signIn(params.email, params.password);
       return Right(user);
+    } on AuthException catch (_) {
+      return Left(ServerFailure(message: 'Email or password are wrong'));
     } catch (e) {
-      return Left(ServerFailure(message: e.toString()));
+      return Left(ServerFailure(message: "Error has occurred"));
     }
   }
 }

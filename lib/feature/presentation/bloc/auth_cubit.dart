@@ -1,8 +1,10 @@
 import 'package:application_pet/feature/domain/repositories/auth_repository.dart';
+import 'package:application_pet/feature/domain/usecases/use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/user.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
+import '../../domain/usecases/sign_out_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 
 /// AuthState represents the state of the authentication flow:
@@ -31,11 +33,13 @@ class AuthCubit extends Cubit<AuthState> {
   final SignInUseCase signInUseCase;
   final SignUpUseCase signUpUseCase;
   final SignOutUseCase signOutUseCase;
+  final AuthRepository authRepository;
 
   AuthCubit({
     required this.signInUseCase,
     required this.signUpUseCase,
     required this.signOutUseCase,
+    required this.authRepository,
   }) : super(AuthState());
 
   Future<void> signIn(String email, String password) async {
@@ -57,11 +61,14 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> signOut() async {
-    await signOutUseCase;
-    emit(AuthState());
+   emit(state.copyWith(loading: true, error: null));
+   final result = await signOutUseCase(NoParams());
+   result.fold(
+       (failure) => emit(state.copyWith(loading: false, error: failure.message)),
+         (_) => emit(AuthState()),
+   );
   }
-}
-
-class SignOutUseCase {
-  SignOutUseCase(AuthRepository authRepository);
+  UserEntity? getCurrentUser() {
+    return authRepository.getCurrentUser();
+  }
 }
