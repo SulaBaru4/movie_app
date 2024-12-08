@@ -25,11 +25,11 @@ class CustomText extends StatelessWidget {
         style: DefaultTextStyle.of(context).style.copyWith(fontSize: 24),
         children: [
           TextSpan(
-            text: text[0], // Первая буква
+            text: text[0], // first letter
             style: TextStyle(color: firstLetterColor, fontWeight: FontWeight.bold, ),
           ),
           TextSpan(
-            text: text.substring(1), // Остальная часть текста
+            text: text.substring(1), // other part of text
             style: TextStyle(color: remainingTextColor),
           ),
         ],

@@ -7,6 +7,10 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../../common/widget_size.dart';
 import '../../domain/entities/movie.dart';
 
+/// Displays detailed information about a movie, including its description and trailer.
+///
+/// This page provides a comprehensive view of a movie, including an image, a description,
+/// and an embedded YouTube player for the movie trailer.
 class MoviesPage extends StatefulWidget {
   final Movie movie;
 
@@ -21,6 +25,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
   @override
   void initState() {
+    /// Extracts the video ID from the YouTube URL and initializes the controller.
     final videoId = YoutubePlayerController.convertUrlToId(widget.movie.videoLink);
     _controller = YoutubePlayerController.fromVideoId(
       videoId: videoId ?? "",
@@ -29,13 +34,7 @@ class _MoviesPageState extends State<MoviesPage> {
         mute: false,
         showFullscreenButton: true,
         showControls: true,
-      )
-      /*flags: const YoutubePlayerFlags(
-        enableCaption: true,
-        autoPlay: false,
-        isLive: false,
-        forceHD: true,
-      ),*/
+      ),
     );
     super.initState();
   }
@@ -67,6 +66,7 @@ class _MoviesPageState extends State<MoviesPage> {
             widgetSpace(20),
             Align(
                 alignment: Alignment.topCenter,
+                /// Displays the movie's image.
                 child: Image.asset(
                   widget.movie.imageAsset,
                   width: widgetSize.width * 0.45,
@@ -74,6 +74,7 @@ class _MoviesPageState extends State<MoviesPage> {
                   fit: BoxFit.cover,
                 )),
             widgetSpace(20),
+
             CustomText(
                 text: "Description",
                 firstLetterColor: AppColors.pink,
@@ -83,6 +84,11 @@ class _MoviesPageState extends State<MoviesPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(widget.movie.description),
             ),
+            widgetSpace(20),
+            CustomText(
+                text: "Trailer",
+                firstLetterColor: AppColors.pink,
+                remainingTextColor: Colors.black),
             widgetSpace(20),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),

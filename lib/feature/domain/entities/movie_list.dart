@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../presentation/widgets/movie_card.dart';
 import 'movie.dart';
-
+/// A widget that displays a list of movies in a grid format.
+///
+/// The grid consists of movie cards arranged in two columns. Each card displays
+/// details about a movie, such as its poster and title.
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
 

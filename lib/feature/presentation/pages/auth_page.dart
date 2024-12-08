@@ -5,22 +5,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/colors.dart';
 
+/// Provides a user interface for signing in and signing up with email and password.
+/// Utilizes [AuthCubit] for state management and handles navigation upon successful authentication.
 class AuthPage extends StatefulWidget {
-
 
   const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
 }
-
+/// Manages user input, handles authentication logic, and navigates
+/// to the main page upon successful sign-in or sign-up.
 class _AuthPageState extends State<AuthPage> {
+  /// Controller for email input field.
   final emailController = TextEditingController();
+
+  /// Controller for password input field.
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.cleanWhite),
         backgroundColor: AppColors.pink,
         title: const Text(
           'Welcome',
@@ -28,6 +34,7 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
       body: BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
+        /// Navigate to [MainPage] if the user is successfully authenticated.
         if (state.user != null) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const MainPage()));
@@ -40,6 +47,7 @@ class _AuthPageState extends State<AuthPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (state.error != null)
+                /// Displays an error message if authentication fails.
                   Text(state.error!, style: const TextStyle(color: Colors.red)),
                 TextField(
                   controller: emailController,
