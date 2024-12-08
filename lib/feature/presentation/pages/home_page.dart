@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 import '../../../../common/colors.dart';
 import '../../domain/entities/movie.dart';
 
+/// A StatefulWidget representing the main page of the MovieApp.
+///
+/// Displays a list of movies and provides navigation to authentication and movie details pages.
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -23,6 +26,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    /// List of predefined movies with titles, descriptions, images, and video links.
     // ignore: unused_local_variable
     final use = context.watch<AuthCubit>().state.user;
     final List<Movie> movies = [
@@ -68,9 +72,11 @@ class _MainPageState extends State<MainPage> {
             onPressed: () {
               final authCubit = context.read<AuthCubit>();
               final user = authCubit.state.user;
+              /// If the user is logged in, show a dialog with account options.
               if (user != null) {
                 showLoggedDialog(context, user.email);
               } else {
+                /// If the user is not logged in, navigate to the authentication page.
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const AuthPage()));
               }
@@ -88,6 +94,7 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// Displays a grid of movies using [MovieList].
             MovieList(movies: movies)
           ],
         ),

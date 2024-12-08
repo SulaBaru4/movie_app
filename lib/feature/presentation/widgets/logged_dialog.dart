@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/colors.dart';
 
+/// Displays a dialog when a user is already logged in.
 void showLoggedDialog(BuildContext context, String? email) {
   showDialog(
     context: context,

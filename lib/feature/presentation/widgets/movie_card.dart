@@ -6,6 +6,9 @@ import '../../../common/colors.dart';
 import '../../../common/custom_text.dart';
 import '../../domain/entities/movie.dart';
 
+/// A widget that displays a card with a movie's image and title.
+///
+/// The [MovieCard] widget is tappable and navigates to the [MoviesPage] for the selected movie.
 class MovieCard extends StatelessWidget {
   final Movie movie;
 
@@ -20,6 +23,7 @@ class MovieCard extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32),
           child: GestureDetector(
             onTap: () {
+              /// Navigates to the MoviesPage when the card is tapped.
               Navigator.push(context, MaterialPageRoute(builder: (context) => MoviesPage(movie: movie,)));
             },
             child: Card(
@@ -29,6 +33,7 @@ class MovieCard extends StatelessWidget {
               ),
               child: Column(
                 children: [
+                  /// Displays the movie's image.
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                     child: Image.asset(
