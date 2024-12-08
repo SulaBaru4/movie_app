@@ -4,13 +4,13 @@ abstract class Failure {
 }
 
 class ServerFailure extends Failure {
-  ServerFailure({required String message}) : super(message: message);
+  ServerFailure({required super.message});
 }
 
 class CacheFailure extends Failure {
-  CacheFailure ({required String message}) : super(message: message);
+  CacheFailure ({required super.message});
 }
 
 class ValidationFailure extends Failure {
-  ValidationFailure({required String message}) : super(message: message);
+  ValidationFailure({required super.message});
 }

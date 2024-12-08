@@ -1,4 +1,3 @@
-import 'package:application_pet/common/widget_size.dart';
 import 'package:application_pet/feature/presentation/bloc/auth_cubit.dart';
 import 'package:application_pet/feature/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import '../../../common/colors.dart';
 class AuthPage extends StatefulWidget {
 
 
-  AuthPage({super.key});
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -20,11 +19,10 @@ class _AuthPageState extends State<AuthPage> {
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var widgetSize = WidgetSize(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.pink,
-        title: Text(
+        title: const Text(
           'Welcome',
           style: TextStyle(color: Colors.white, fontSize: 32),
         ),
@@ -32,7 +30,7 @@ class _AuthPageState extends State<AuthPage> {
       body: BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
         if (state.user != null) {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => MainPage()));
+              MaterialPageRoute(builder: (context) => const MainPage()));
         }
       }, builder: (BuildContext context,state) {
         return Padding(

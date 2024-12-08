@@ -1,15 +1,11 @@
-import 'package:application_pet/feature/data/datasource/storage_repository_impl.dart';
 import 'package:application_pet/feature/data/repositories/auth_repository_impl.dart';
 import 'package:application_pet/feature/domain/repositories/auth_repository.dart';
-import 'package:application_pet/feature/domain/usecases/fetch_images_usecase.dart';
 import 'package:application_pet/feature/domain/usecases/sign_in_usecase.dart';
 import 'package:application_pet/feature/domain/usecases/sign_out_usecase.dart';
 import 'package:application_pet/feature/domain/usecases/sign_up_usecase.dart';
 import 'package:application_pet/feature/presentation/bloc/auth_cubit.dart';
-import 'package:application_pet/feature/presentation/viewmodels/images_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'feature/data/datasource/supabase_auth_data_source.dart';
@@ -27,13 +23,10 @@ void main() async {
   );
 
   /// Dependencies
-  final supabaseClient = Supabase.instance.client;
   final dataSource = SupabaseAuthDataSource(Supabase.instance.client);
   final AuthRepository authRepository = AuthRepositoryImpl(dataSource);
 
   /// Data layer for images
-  final storageRepository = StorageRepositoryImpl(supabaseClient);
-  final fetchImageUseCase = FetchImageUseCase(storageRepository);
 
   /// Data layer for authentication
   final signInUseCase = SignInUseCase(authRepository);
@@ -53,9 +46,9 @@ void main() async {
     child: MaterialApp(
     initialRoute: '/splash',
     routes: {
-      '/splash': (context) => SplashScreen(),
-      '/auth': (context) => AuthPage(),
-      '/home': (context) => MainPage(),
+      '/splash': (context) => const SplashScreen(),
+      '/auth': (context) => const AuthPage(),
+      '/home': (context) => const MainPage(),
     },
   ),
   ),
