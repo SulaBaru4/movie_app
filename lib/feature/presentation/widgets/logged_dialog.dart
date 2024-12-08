@@ -8,7 +8,7 @@ void showLoggedDialog(BuildContext context, String? email) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text("You are already logged in", style: TextStyle(fontSize: 20),),
+      title: const Text("You are already logged in", style: TextStyle(fontSize: 20),),
       content: Text("You logged in as $email. \n Do you want to log out?"),
       actions: [
         ElevatedButton(
@@ -21,7 +21,7 @@ void showLoggedDialog(BuildContext context, String? email) {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Cancel', style: TextStyle(color: Colors.white),),),
+            child: const Text('Cancel', style: TextStyle(color: Colors.white),),),
         ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.pink,
@@ -32,7 +32,7 @@ void showLoggedDialog(BuildContext context, String? email) {
             onPressed: () {
           context.read<AuthCubit>().signOut();
           Navigator.pop(context);
-        }, child: Text("Log out",style: TextStyle(color: Colors.white),))
+        }, child: const Text("Log out",style: TextStyle(color: Colors.white),))
       ],
     ),
   );
